@@ -6,12 +6,12 @@ import lombok.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "Members")
+@Table(name = "members")
 @Getter
 @Setter
+@ToString(exclude = "password")
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class Member {
 
     @Id

@@ -1,14 +1,12 @@
 package com.Library.management.service;
 
-import com.Library.management.repository.MemberRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.Library.management.dto.MemberRequest;
+import com.Library.management.entity.Member;
 
-@Service
-@RequiredArgsConstructor
-public class MemberService {
+import java.util.List;
 
-    @Autowired
-    private final MemberRepository memberRepository;
+public interface MemberService {
+    Member register(MemberRequest req);
+    List<Member> listAll();
+    Member getById(Long id);
 }
