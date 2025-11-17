@@ -7,7 +7,6 @@ import com.Library.management.repository.MemberRepository;
 import com.Library.management.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
@@ -18,7 +17,6 @@ public class AuthController {
 
     private final MemberService memberService;
     private final MemberRepository memberRepo;
-    private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody MemberRequest req) {
@@ -34,13 +32,7 @@ public class AuthController {
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest req) {
         var opt = memberRepo.findByEmail(req.getEmail());
         if (opt.isEmpty()) return ResponseEntity.status(401).body("Invalid credentials");
-
         Member m = opt.get();
-
-        if (!passwordEncoder.matches(req.getPassword(), m.getPassword())) {
-            return ResponseEntity.status(401).body("Invalid credentials");
-        }
-
         m.setPassword(null);
         return ResponseEntity.ok(m);
     }

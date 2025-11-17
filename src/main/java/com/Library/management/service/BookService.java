@@ -1,14 +1,20 @@
 package com.Library.management.service;
 
-import com.Library.management.dto.BookRequest;
 import com.Library.management.entity.Book;
+import com.Library.management.repository.BookRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface BookService {
-    List<Book> listAll();
-    Book getById(Long id);
-    Book create(BookRequest req);
-    Book update(Long id, BookRequest req);
-    void deleteById(Long id);
+@Service
+@RequiredArgsConstructor
+public class BookService {
+    @Autowired
+    private final BookRepository bookRepository;
+
+    public List<Book> all() {
+        return bookRepository.findAll();
+    }
 }
